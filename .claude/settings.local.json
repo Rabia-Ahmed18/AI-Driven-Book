@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.specify/scripts/bash/create-new-feature.sh 'Set up initial project configuration' --short-name 'initial-config')"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

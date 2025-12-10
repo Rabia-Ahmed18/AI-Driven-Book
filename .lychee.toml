@@ -1,0 +1,34 @@
+# Lychee configuration file
+# This file configures the link checker for the documentation project
+
+# Exclude internal links (starting with # or /) from external link checking
+exclude = [
+    # Skip all email addresses
+    '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
+    # Skip relative links (internal documentation links)
+    '\b(?!https?://)[\w\.-]+/[\w\.-]+',
+    # Skip anchor links
+    '#[\w-]+'
+]
+
+# Enable verbose output
+verbose = true
+
+# Set the maximum number of concurrent link checks
+max_concurrency = 10
+
+# Timeout for each request in seconds
+timeout = 10
+
+# Include both internal and external links in the check
+check_internal = true
+check_external = true
+
+# For GitHub Actions or CI/CD, you might want to treat failures as warnings instead of errors
+# treat_redirect_as_failure = false
+
+# Only check links with specific schemes (optional)
+# include_schemes = ["http", "https", "mailto"]
+
+# For files, you can specify which ones to scan
+# files = ["docs/**/*.md", "docs/**/*.mdx"]

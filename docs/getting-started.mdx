@@ -1,0 +1,297 @@
+---
+sidebar_position: 2
+---
+
+# Getting Started with Docusaurus
+
+This chapter provides a practical guide to setting up Docusaurus v3 for technical documentation, including configuration, theming, and internationalization features.
+
+## Setting Up Your Docusaurus Project
+
+To create a new Docusaurus project, you'll need Node.js (version 18 or higher) installed on your system. Follow these steps to set up your project:
+
+```bash
+# Create a new Docusaurus project
+npx create-docusaurus@latest my-website classic
+
+# Navigate to your project directory
+cd my-website
+
+# Start the development server
+npm run start
+```
+
+This will create a new Docusaurus site with the classic template and start a local development server at `http://localhost:3000`.
+
+## Docusaurus Configuration
+
+The main configuration file for your Docusaurus site is `docusaurus.config.js`. This file contains all the settings for your site, including metadata, themes, plugins, and more.
+
+Here's a breakdown of the key configuration options:
+
+```js title="docusaurus.config.js"
+const config = {
+  // Basic site metadata
+  title: 'My Site',
+  tagline: 'Dinosaurs are cool',
+  favicon: 'img/favicon.ico',
+
+  // Deployment settings
+  url: 'https://your-org.github.io',
+  baseUrl: '/my-website/',
+  organizationName: 'your-org',
+  projectName: 'my-website',
+
+  // Internationalization settings
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh-Hans'],
+  },
+
+  // Presets define collections of plugins
+  presets: [
+    [
+      'classic',
+      {
+        docs: {
+          sidebarPath: './sidebars.js',
+          editUrl: 'https://github.com/your-org/my-website/edit/main/',
+        },
+        blog: false,
+        theme: {
+          customCss: './src/css/custom.css',
+        },
+      },
+    ],
+  ],
+
+  // Theme-specific configurations
+  themeConfig: {
+    navbar: {
+      title: 'My Site',
+      logo: {
+        alt: 'My Site Logo',
+        src: 'img/logo.svg',
+      },
+      items: [
+        {
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          position: 'left',
+          label: 'Docs',
+        },
+        {
+          href: 'https://github.com/your-org/my-website',
+          label: 'GitHub',
+          position: 'right',
+        },
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Docs',
+          items: [
+            {
+              label: 'Tutorial',
+              to: '/docs/intro',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+    },
+  },
+};
+```
+
+## Responsive Design and Theming
+
+Docusaurus provides built-in responsive design that works across all devices. The theme system allows you to customize the look and feel of your site.
+
+### Dark/Light Mode
+
+Docusaurus includes a built-in dark/light mode toggle that users can switch between. The theme configuration in `docusaurus.config.js` handles the color schemes:
+
+```js
+themeConfig: {
+  prism: {
+    theme: themes.github,      // Light theme for code blocks
+    darkTheme: themes.dracula, // Dark theme for code blocks
+  },
+}
+```
+
+### Custom Styling
+
+You can add custom CSS to your site by modifying the `src/css/custom.css` file:
+
+```css title="src/css/custom.css"
+/* Custom color palette */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+}
+```
+
+## Internationalization (i18n)
+
+Docusaurus has built-in support for internationalization. You can configure multiple languages in your `docusaurus.config.js`:
+
+```js
+i18n: {
+  defaultLocale: 'en',
+  locales: ['en', 'zh-Hans', 'fr', 'es'],
+},
+```
+
+To add content in different languages, create locale-specific directories in your `i18n` folder:
+
+```
+i18n/
+├── zh-Hans/
+│   └── docusaurus-plugin-content-docs/
+│       └── current/
+│           ├── intro.md
+│           └── getting-started.md
+└── fr/
+    └── docusaurus-plugin-content-docs/
+        └── current/
+            ├── intro.md
+            └── getting-started.md
+```
+
+## Creating Content with MDX
+
+MDX allows you to write JSX in your Markdown documents. This enables you to create rich, interactive content:
+
+```mdx title="example.mdx"
+import Component from '@site/src/components/Component';
+
+# My Document
+
+This is a regular paragraph.
+
+<Component />
+
+## Section with Interactive Element
+
+You can embed React components directly in your Markdown!
+```
+
+### Code Blocks and Syntax Highlighting
+
+Docusaurus provides excellent syntax highlighting for code blocks:
+
+```js title="example.js"
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+### Admonitions
+
+Use admonitions to highlight important information:
+
+```md
+:::note
+This is a note with important information.
+:::
+
+:::tip
+This is a helpful tip for the reader.
+:::
+
+:::caution
+This is a warning about potential issues.
+:::
+
+:::danger
+This indicates a critical issue or danger.
+:::
+```
+
+## Best Practices
+
+### Content Organization
+
+Organize your documentation with a clear hierarchy:
+
+```
+docs/
+├── intro.md
+├── getting-started/
+│   ├── index.md
+│   ├── installation.md
+│   └── configuration.md
+├── guides/
+│   ├── writing-content.md
+│   └── theming.md
+└── reference/
+    ├── configuration.md
+    └── cli.md
+```
+
+### SEO and Accessibility
+
+- Use semantic HTML elements
+- Provide alternative text for images
+- Use proper heading hierarchy (h1, h2, h3, etc.)
+- Include meta descriptions for each page
+
+## Troubleshooting Common Issues
+
+### Build Errors
+
+If you encounter build errors, check:
+
+1. All dependencies are installed: `npm install`
+2. Configuration files are properly formatted
+3. There are no syntax errors in your MDX files
+
+### Performance Issues
+
+To improve build performance:
+
+1. Optimize images before adding them to your site
+2. Use code splitting for large components
+3. Minimize external dependencies
+
+### Deployment Issues
+
+For GitHub Pages deployment issues:
+
+1. Verify your `baseUrl` and `organizationName`/`projectName` settings
+2. Check that your GitHub Actions workflow is properly configured
+3. Ensure your repository allows GitHub Pages publishing
+
+## Summary
+
+In this chapter, you learned how to set up a Docusaurus v3 project, configure responsive design and theming, implement internationalization, and create rich content with MDX. These foundational skills will help you build a professional documentation site that meets the requirements outlined in the success criteria.

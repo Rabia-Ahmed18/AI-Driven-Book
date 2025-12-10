@@ -1,0 +1,25 @@
+{
+  "name": "ai-spec-driven-book",
+  "version": "1.0.0",
+  "description": "A technical book authored and maintained using AI-assisted, spec-first workflows",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build/tools/build-book.js",
+    "serve": "npx http-server dist -o",
+    "validate": "node build/tools/validate-specs.js",
+    "generate": "bash scripts/generate-book.sh",
+    "deploy": "gh-pages -d dist"
+  },
+  "keywords": [
+    "book",
+    "documentation",
+    "spec-driven",
+    "ai-assisted"
+  ],
+  "author": "SpecKit Plus",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.1.0",
+    "http-server": "^14.1.1"
+  }
+}
