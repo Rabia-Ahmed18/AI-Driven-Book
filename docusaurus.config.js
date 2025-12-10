@@ -11,7 +11,7 @@ const config = {
 
 
   
-  url: 'https://rabia-ahmed18.github.io/AI-Driven-Book/',
+  url: 'https://rabia-ahmed18.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<org-name>/<repo-name>/'
   baseUrl: '/ai-spec-driven-book/',
@@ -62,11 +62,11 @@ const config = {
       image: 'img/logo~.jpg',
       navbar: {
         title: 'AI/Spec-Driven Book',
-        logo: {
-          alt: 'AI/Spec-Driven Book Logo',
-          src: '/Agentic-Ai-Projects/HACKATHON/HACKATHON-1/static/img',
-          href: '/ ',
-        },
+        // logo: {
+        //   alt: 'AI/Spec-Driven Book Logo',
+        //   src: '/Agentic-Ai-Projects/HACKATHON/HACKATHON-1/static/img',
+        //   href: '/ ',
+        // },
         items: [
           {
             type: 'docSidebar',

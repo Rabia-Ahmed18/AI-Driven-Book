@@ -1,21 +1,32 @@
 # Dependencies
 node_modules/
-
-# Build outputs
-build/
-dist/
-out/
-*.min.js
-*.min.css
+/.pnp
+.pnp.js
 
 # Docusaurus
 .docusaurus/
-.docusaurus-cname-deployed
+build/
+.cache/
+
+# Production
+dist/
 
 # Environment variables
-.env*
-.env*.local
-.env*.backup
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+*.log
+
+# TypeScript
+*.tsbuildinfo
 
 # IDE
 .vscode/
@@ -23,36 +34,13 @@ out/
 *.swp
 *.swo
 *~
+.DS_Store
 
 # OS
-.DS_Store
 Thumbs.db
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Coverage
-coverage/
-.nyc_output/
 
 # Temporary files
 *.tmp
-*.bak
-*.orig
-*.rej
+.temp/
 
-# Editor
-.history/
-
-# Testing
-.jest/
-
-# TypeScript
-*.tsbuildinfo
-*.js.map
-*.jsx.map
-*.ts.map
-*.tsx.map
+# Co
