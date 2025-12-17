@@ -43,4 +43,38 @@ Thumbs.db
 *.tmp
 .temp/
 
-# Co
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+.ENV
+.python-version
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.pyre/
+.mypy_cache/
+.pytype/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# FastAPI/uvicorn
+*.db
+*.db-journal
+
+# Docker
+Dockerfile*
+.dockerignore
+
+# Qdrant
+qdrant_data/

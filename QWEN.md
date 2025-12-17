@@ -208,3 +208,12 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- Python 3.11 + FastAPI (007-rag-chatbot-full-implementation)
+- Qdrant Cloud (007-rag-chatbot-full-implementation)
+- Neon Serverless Postgres (007-rag-chatbot-full-implementation)
+- React + TypeScript (007-rag-chatbot-full-implementation)
+
+## Recent Changes
+- 007-rag-chatbot-full-implementation: Added Python 3.11 + FastAPI

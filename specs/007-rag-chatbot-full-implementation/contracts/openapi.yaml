@@ -1,0 +1,207 @@
+# OpenAPI Specification: RAG Chatbot Backend API
+
+openapi: 3.0.3
+info:
+  title: RAG Chatbot Backend API
+  description: API for the RAG Chatbot that enables users to ask questions about book content with source citations
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+
+servers:
+  - url: https://rag-backend.example.com
+    description: Production server
+  - url: http://localhost:8000
+    description: Development server
+
+paths:
+  /chat:
+    post:
+      summary: Primary RAG Query endpoint
+      description: Process user question and return answer with source citations
+      operationId: chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful response with answer and citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - RAG Operations
+
+  /ingest:
+    post:
+      summary: Ingestion trigger for book content
+      description: Process and index new book content for RAG operations
+      operationId: ingest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestRequest'
+      responses:
+        '200':
+          description: Successful ingestion with details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Content Management
+
+  /health:
+    get:
+      summary: Simple health check
+      description: Check if the service is running and healthy
+      operationId: health
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'ok'
+        '500':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Health
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          description: The user's question
+          example: "What are the key principles of RAG architecture?"
+        selected_context:
+          type: string
+          description: The highlighted text from the Docusaurus page (optional)
+          example: "RAG architecture combines retrieval and generation components..."
+      example:
+        question: "What are the key principles of RAG architecture?"
+        selected_context: "RAG architecture combines retrieval and generation components..."
+
+    ChatResponse:
+      type: object
+      required:
+        - answer
+        - source_citations
+      properties:
+        answer:
+          type: string
+          description: The final LLM-generated answer
+          example: "The key principles of RAG architecture are..."
+        source_citations:
+          type: array
+          items:
+            type: string
+          description: List of document/chunk IDs or titles retrieved from Qdrant/Postgres
+          example: ["docs/rag-intro.md#section1", "docs/architecture.md#principles"]
+
+    IngestRequest:
+      type: object
+      required:
+        - source_path
+      properties:
+        source_path:
+          type: string
+          description: Path to the content to be ingested
+          example: "docs/"
+        force_reprocess:
+          type: boolean
+          description: Whether to reprocess content even if already indexed
+          default: false
+      example:
+        source_path: "docs/",
+        force_reprocess: false
+
+    IngestResponse:
+      type: object
+      required:
+        - status
+        - processed_files
+      properties:
+        status:
+          type: string
+          description: Status of the ingestion operation
+          enum: [success, partial_success, error]
+          example: "success"
+        processed_files:
+          type: array
+          items:
+            type: string
+          description: List of files that were successfully processed
+          example: ["docs/intro.md", "docs/rag-basics.mdx"]
+        errors:
+          type: array
+          items:
+            type: string
+          description: List of any errors that occurred during processing
+          example: ["docs/invalid.md: parsing error"]
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        details:
+          type: string
+          description: Additional error details
+          example: "Question field is required and cannot be empty"
+
+tags:
+  - name: RAG Operations
+    description: Endpoints related to the core RAG functionality
+  - name: Content Management
+    description: Endpoints for ingesting and managing content
+  - name: Health
+    description: Health check endpoints
