@@ -5,36 +5,337 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+/* Import professional fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 /* You can override the default Docusaurus variables here. */
 :root {
-  --ifm-color-primary: #684f78;
-  --ifm-color-primary-dark: #684f78;
-  --ifm-color-primary-darker: #684f78;
-  --ifm-color-primary-darkest:#7f519d;
-  --ifm-color-primary-light: #8d57ae;
-  --ifm-color-primary-lighter: #5d2f7a;
-  --ifm-color-primary-lightest: #684f78;
+  --ifm-color-primary: #1a365d;          /* Professional navy blue */
+  --ifm-color-primary-dark: #152a47;     /* Darker navy */
+  --ifm-color-primary-darker: #0f1e31;   /* Even darker navy */
+  --ifm-color-primary-darkest: #0a121c;  /* Darkest navy */
+  --ifm-color-primary-light: #2d4f7c;    /* Lighter navy */
+  --ifm-color-primary-lighter: #4a6a9c;  /* Much lighter navy */
+  --ifm-color-primary-lightest: #6b87b0; /* Lightest navy */
+  --ifm-color-secondary: #5f7d95;        /* Professional gray-blue */
+  --ifm-color-success: #0a7e3a;          /* Professional green */
+  --ifm-color-info: #0d6efd;             /* Professional blue */
+  --ifm-color-warning: #e0a11a;          /* Professional amber */
+  --ifm-color-danger: #d9534f;           /* Professional red */
+  --ifm-background-color: #f8fafc;       /* Light gray-blue background */
+  --ifm-footer-background-color: #1a365d; /* Professional footer */
+  --ifm-navbar-background-color: #ffffff; /* White navbar */
   --ifm-code-font-size: 95%;
+
+  /* Professional font stack */
+  --ifm-font-family-base: "Inter", system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #684f78;
-  --ifm-color-primary-dark:  #684f78;
-  --ifm-color-primary-darker:  #684f78;
-  --ifm-color-primary-darkest: #7f519d;
-  --ifm-color-primary-light: #8d57ae;
-  --ifm-color-primary-lighter: #5d2f7a;
-  --ifm-color-primary-lightest:#684f78;
+  --ifm-color-primary: #4a6fa5;
+  --ifm-color-primary-dark: #3a5a80;
+  --ifm-color-primary-darker: #2a4a6b;
+  --ifm-color-primary-darkest: #1a3a56;
+  --ifm-color-primary-light: #5a7fb5;
+  --ifm-color-primary-lighter: #7da3c5;
+  --ifm-color-primary-lightest: #a0c0d5;
+  --ifm-background-color: #0f172a;       /* Dark slate background */
+  --ifm-footer-background-color: #1a365d; /* Professional footer */
+  --ifm-navbar-background-color: #0f172a; /* Dark navbar */
+}
+
+/* Professional typography */
+html {
+  font-family: var(--ifm-font-family-base);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ifm-heading-color, #7495d7);
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  color: var(--ifm-heading-color, #386f94);
+}
+
+p {
+  font-family: "Merriweather", Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--ifm-font-color-base, #334155);
+}
+
+/* Text colors for light and dark themes */
+:root {
+  --ifm-font-color-base: #647fa5;
+  --ifm-heading-color: #1a202c;
+  --ifm-font-color-base-inverse: #e2e8f0;
+  --ifm-heading-color-inverse: #f1f5f9;
+}
+
+[data-theme='dark'] {
+  --ifm-font-color-base: #cbd5e1;
+  --ifm-heading-color: #f1f5f9;
+}
+
+/* Additional text elements for theme consistency */
+a {
+  color: var(--ifm-link-color, var(--ifm-color-primary));
+}
+
+.markdown a {
+  color: var(--ifm-link-color, var(--ifm-color-primary));
+}
+
+.navbar__link {
+  color: var(--ifm-navbar-link-color, var(--ifm-color-emphasis-900));
+}
+
+html[data-theme='dark'] .navbar__link,
+html[data-theme='dark'] .navbar__title {
+  color: var(--ifm-navbar-link-color, var(--ifm-color-emphasis-100));
+}
+
+.table-of-contents__link {
+  color: var(--ifm-toc-link-color, var(--ifm-font-color-base));
+}
+
+.table-of-contents__link--active {
+  color: var(--ifm-color-primary);
+}
+
+.table-of-contents__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+html[data-theme='dark'] .table-of-contents__link {
+  color: var(--ifm-toc-link-color, var(--ifm-font-color-base));
+}
+
+html[data-theme='dark'] .table-of-contents__link--active {
+  color: var(--ifm-color-primary-lighter);
+}
+
+html[data-theme='dark'] .table-of-contents__link:hover {
+  color: var(--ifm-color-primary-lighter);
+}
+
+/* Content text */
+.markdown {
+  color: var(--ifm-font-color-base);
+}
+
+html[data-theme='dark'] .markdown {
+  color: var(--ifm-font-color-base);
+}
+
+/* Card content text */
+.card p {
+  color: var(--ifm-font-color-base);
+}
+
+/* Footer text */
+.footer {
+  color: #e2e8f0;
+}
+
+.footer__title {
+  color: #f1f5f9;
+}
+
+.footer__link-item {
+  color: #cbd5e1;
+}
+
+html[data-theme='dark'] .footer,
+html[data-theme='dark'] .footer__title,
+html[data-theme='dark'] .footer__link-item {
+  color: #cbd5e1;
+}
+
+/* Enhanced gradient backgrounds */
+.hero--primary {
+  background: linear-gradient(135deg, #1a365d, #2d4f7c, #4a6fa5);
+  color: white;
+  padding: 4rem 0;
+}
+
+.hero--secondary {
+  background: linear-gradient(135deg, #5f7d95, #7ca0b5, #9dc2d0);
+}
+
+.hero--tertiary {
+  background: linear-gradient(135deg, #0a7e3a, #0d8a43, #0fab55);
 }
 
 .docusaurus-highlight-code-line {
-  background-color: rgba(40, 20, 50, 0.1);
+  background-color: rgba(26, 54, 93, 0.1); /* Professional navy highlight */
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
 
 [data-theme='dark'] .docusaurus-highlight-code-line {
-  background-color: rgba(40, 9, 56, 0.532);
+  background-color: rgba(74, 111, 165, 0.3); /* Professional dark highlight */
+}
+
+/* Professional button styles with gradients */
+.button--primary {
+  background: linear-gradient(135deg, var(--ifm-color-primary), var(--ifm-color-primary-darker));
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.button--primary:hover {
+  background: linear-gradient(135deg, var(--ifm-color-primary-dark), var(--ifm-color-primary-darkest));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.button--secondary {
+  background: linear-gradient(135deg, var(--ifm-color-secondary), #52708a);
+  border: none;
+  color: white;
+  font-weight: 600;
+}
+
+.navbar {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background-color: var(--ifm-navbar-background-color);
+  padding: 0.8rem 0;
+}
+
+.navbar__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer {
+  background: linear-gradient(135deg, var(--ifm-footer-background-color), #0f2440);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  color: white;
+}
+
+html:not([data-theme="dark"]) .footer--dark {
+  --ifm-footer-background-color: #1a365d;
+}
+
+/* Professional card styling with gradient borders */
+.card {
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(40, 55, 80, 0.07), 0 1px 3px rgba(40, 55, 80, 0.05);
+  border-radius: 8px;
+  background-color: white;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(40, 55, 80, 0.1), 0 4px 10px rgba(40, 55, 80, 0.05);
+}
+
+/* Professional table styling */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Article and content styling */
+article {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.main-wrapper {
+  background-color: var(--ifm-background-color);
+  min-height: calc(100vh - 8rem);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Documentation sidebar styling */
+.menu {
+  font-size: 0.9rem;
+}
+
+.menu__link {
+  border-radius: 6px;
+  margin: 2px 0;
+}
+
+.menu__link--active {
+  background-color: rgba(74, 111, 165, 0.1);
+  font-weight: 600;
+}
+
+/* Blockquote styling for professional look */
+blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  background-color: rgba(26, 54, 93, 0.03);
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: #475569;
+}
+
+/* Code block enhancements */
+.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Container-styles-module {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Link styling */
+a {
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--ifm-color-primary-darker);
+  text-decoration: underline;
 }
