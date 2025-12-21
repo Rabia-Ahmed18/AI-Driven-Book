@@ -10,4 +10,4 @@ pydantic-settings==2.0.3
 sqlalchemy==2.0.23
 uuid==1.30
 langchain==0.0.339
-tiktoken==0.5.1
+tiktoken
