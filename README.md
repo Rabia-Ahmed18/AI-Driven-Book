@@ -1,3 +1,8 @@
+---
+sdk: docker
+app_port: 7860
+---
+
 # RAG Chatbot Backend
 
 This directory contains the FastAPI backend for the RAG (Retrieval-Augmented Generation) Chatbot that integrates with the Docusaurus documentation site.
