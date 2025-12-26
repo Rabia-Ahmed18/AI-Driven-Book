@@ -64,7 +64,7 @@ EXPOSE 8000
 
 # Health check endpoint
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:$PORT/health || exit 1
+    CMD curl -f http://localhost:$port/health || exit 1
 
 # Define the command to run the application
-CMD ["sh", "-c", "python -m uvicorn app:app --host 0.0.0.0 --port $PORT"]
+CMD ["sh", "-c", "python -m uvicorn app:app --host 0.0.0.0 --port 8000"]

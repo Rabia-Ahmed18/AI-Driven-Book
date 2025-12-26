@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .routes import chat, ingest, books
+from backend.src.api.v1.routes import chat, ingest, books
 
 
 api_router = APIRouter()

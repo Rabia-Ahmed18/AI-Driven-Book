@@ -4,12 +4,12 @@ from uuid import UUID
 import uuid
 import time
 
-from src.models.chat_session import ChatSessionCreate
-from src.models.interaction import InteractionCreate
-from src.services.chat_service import ChatService
-from src.services.rag_service import RAGService
-from src.core.database import get_db
-from src.utils.validators import validate_user_query
+from backend.src.models.chat_session import ChatSessionCreate
+from backend.src.models.interaction import InteractionCreate
+from backend.src.services.chat_service import ChatService
+from backend.src.services.rag_service import RAGService
+from backend.src.core.database import get_db
+from backend.src.utils.validators import validate_user_query
 
 
 router = APIRouter()
@@ -28,7 +28,7 @@ async def chat(
     try:
         # Validate inputs
         validate_user_query(user_query)
-        
+
         # Validate UUIDs
         try:
             book_uuid = UUID(book_id)
@@ -38,14 +38,14 @@ async def chat(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid UUID format"
             )
-        
+
         # Initialize services
         rag_service = RAGService()
         chat_service = ChatService()
-        
+
         # Process the query based on context
         start_time = time.time()
-        
+
         if selected_text:
             # Use selection context - prioritize the selected text
             response = await rag_service.get_selection_context_response(
@@ -56,9 +56,9 @@ async def chat(
             response = await rag_service.get_global_context_response(
                 user_query, book_id
             )
-        
+
         response_time = int((time.time() - start_time) * 1000)  # Convert to milliseconds
-        
+
         # Create or update session
         if not session_uuid:
             session_data = ChatSessionCreate(
@@ -75,7 +75,7 @@ async def chat(
                     status_code=status.HTTP_404_NOT_FOUND,
                     detail="Session not found"
                 )
-        
+
         # Save the interaction
         interaction_data = InteractionCreate(
             session_id=UUID(session_id),
@@ -86,14 +86,14 @@ async def chat(
             response_time_ms=response_time
         )
         await chat_service.create_interaction(interaction_data)
-        
+
         return {
             "response": response.get("response", ""),
             "citations": response.get("citations", []),
             "response_time_ms": response_time,
             "session_id": session_id
         }
-        
+
     except HTTPException:
         raise
     except Exception as e:

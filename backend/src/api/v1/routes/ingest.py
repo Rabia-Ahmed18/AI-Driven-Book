@@ -2,10 +2,10 @@ from fastapi import APIRouter, HTTPException, status, BackgroundTasks
 from typing import Dict, Any
 import uuid
 
-from src.models.book import BookCreate
-from src.services.ingestion_service import IngestionService
-from src.utils.validators import validate_input, validate_book_content
-from src.utils.text_splitter import text_splitter
+from backend.src.models.book import BookCreate
+from backend.src.services.ingestion_service import IngestionService
+from backend.src.utils.validators import validate_input, validate_book_content
+from backend.src.utils.text_splitter import text_splitter
 
 
 router = APIRouter()
@@ -24,7 +24,7 @@ async def ingest_book(
     try:
         # Validate inputs
         validate_book_content(content)
-        
+
         # Create book data
         book_data = BookCreate(
             title=title,
@@ -32,23 +32,23 @@ async def ingest_book(
             description=metadata.get('description') if metadata else None,
             language=metadata.get('language', 'en') if metadata else 'en'
         )
-        
+
         # Initialize ingestion service
         ingestion_service = IngestionService()
-        
+
         # Process and store the book
         result = await ingestion_service.ingest_book(
             book_data=book_data,
             content=content,
             metadata=metadata or {}
         )
-        
+
         return {
             "book_id": str(result["book_id"]),
             "chunks_created": result["chunks_created"],
             "processing_time_ms": result["processing_time_ms"]
         }
-        
+
     except HTTPException:
         raise
     except Exception as e:

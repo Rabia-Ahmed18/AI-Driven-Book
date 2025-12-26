@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from src.api.v1.api import api_router
-from src.core.config import settings
+from backend.src.api.v1.api import api_router
+from backend.src.core.config import settings
 
 
 def create_app():
@@ -9,14 +9,14 @@ def create_app():
         description="API for the RAG-based book assistant system that allows users to ask questions about book content",
         version="1.0.0"
     )
-    
+
     # Include API routes
     app.include_router(api_router, prefix="/api/v1")
-    
+
     @app.get("/health")
     async def health_check():
         return {"status": "healthy"}
-    
+
     return app
 
 

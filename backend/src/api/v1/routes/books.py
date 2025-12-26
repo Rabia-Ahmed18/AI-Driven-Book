@@ -3,8 +3,8 @@ from typing import List
 import uuid
 from uuid import UUID
 
-from src.models.book import Book, BookCreate
-from src.services.database_service import DatabaseService
+from backend.src.models.book import Book, BookCreate
+from backend.src.services.database_service import DatabaseService
 
 
 router = APIRouter()
@@ -45,7 +45,7 @@ async def create_book(
             description=description,
             language=language
         )
-        
+
         db_service = DatabaseService()
         book = await db_service.create_book(book_data)
         return book
@@ -64,16 +64,16 @@ async def get_book(book_id: str):
     try:
         # Validate UUID
         book_uuid = UUID(book_id)
-        
+
         db_service = DatabaseService()
         book = await db_service.get_book(book_uuid)
-        
+
         if not book:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Book not found"
             )
-        
+
         return book
     except HTTPException:
         raise

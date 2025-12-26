@@ -85,7 +85,7 @@ app = FastAPI(
 # Add CORS middleware to allow requests from Docusaurus frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=["https://ai-driven-book-nine.vercel.app"],  # In production, replace with specific origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

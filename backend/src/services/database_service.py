@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, Column, String, Integer, DateTime, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from ..models.book import Book, BookCreate
-from ..core.database import SessionLocal, engine
+from backend.src.models.book import Book, BookCreate
+from backend.src.core.database import SessionLocal, engine
 
 
 # Define the SQLAlchemy model
