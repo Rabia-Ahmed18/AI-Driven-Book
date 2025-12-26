@@ -15,8 +15,8 @@ WORKDIR /app
 # Copy the entire project first to ensure all files are available in the build context
 COPY . .
 
-# Now copy the requirements file from the project (should be available now)
-COPY backend/requirements.txt requirements.txt
+# Copy requirements file (now that it's definitely available in the build context)
+COPY ./backend/requirements.txt .
 
 # Upgrade pip and install dependencies in a virtual environment
 RUN python -m venv /opt/venv && \
@@ -57,7 +57,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Set default environment variables
 ENV PORT=8000
-ENV PYTHONPATH=/app/backend/src
+ENV PYTHONPATH=/app
 
 # Expose the port that the application will run on
 EXPOSE 8000
