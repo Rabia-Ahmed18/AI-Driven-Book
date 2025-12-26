@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile for Backend Application on HuggingFace Spaces
+# Multi-stage Dockerfile for Backend Application with Railway Deployment Fix
 
 # Build stage
 FROM python:3.11-slim as builder
@@ -12,8 +12,11 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy requirements file
-COPY backend/requirements.txt .
+# Copy the entire project first to ensure all files are available in the build context
+COPY . .
+
+# Now copy the requirements file from the project (should be available now)
+COPY backend/requirements.txt requirements.txt
 
 # Upgrade pip and install dependencies in a virtual environment
 RUN python -m venv /opt/venv && \

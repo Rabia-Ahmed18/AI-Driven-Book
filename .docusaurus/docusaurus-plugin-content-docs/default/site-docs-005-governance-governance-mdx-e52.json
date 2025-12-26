@@ -1,0 +1,24 @@
+{
+  "id": "governance/governance",
+  "title": "Documentation Governance and Maintenance",
+  "description": "Long-term strategies for governing and maintaining technical documentation projects to ensure sustained quality and relevance",
+  "source": "@site/docs/005-governance/governance.mdx",
+  "sourceDirName": "005-governance",
+  "slug": "/governance/governance",
+  "permalink": "/docs/governance/governance",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Documentation Governance and Maintenance",
+    "description": "Long-term strategies for governing and maintaining technical documentation projects to ensure sustained quality and relevance"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Deployment Automation and Quality Gates",
+    "permalink": "/docs/deploy-automate/deploy-automate"
+  }
+}

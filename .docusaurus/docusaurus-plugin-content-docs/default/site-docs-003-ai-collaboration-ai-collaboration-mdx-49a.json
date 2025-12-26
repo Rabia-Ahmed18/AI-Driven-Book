@@ -1,0 +1,28 @@
+{
+  "id": "ai-collaboration/ai-collaboration",
+  "title": "AI Collaboration in Documentation",
+  "description": "Leveraging AI tools like Claude Code as collaborative agents with human oversight for efficient documentation creation",
+  "source": "@site/docs/003-ai-collaboration/ai-collaboration.mdx",
+  "sourceDirName": "003-ai-collaboration",
+  "slug": "/ai-collaboration/ai-collaboration",
+  "permalink": "/docs/ai-collaboration/ai-collaboration",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "AI Collaboration in Documentation",
+    "description": "Leveraging AI tools like Claude Code as collaborative agents with human oversight for efficient documentation creation"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Getting Started with Docusaurus",
+    "permalink": "/docs/getting-started"
+  },
+  "next": {
+    "title": "Deployment Automation and Quality Gates",
+    "permalink": "/docs/deploy-automate/deploy-automate"
+  }
+}

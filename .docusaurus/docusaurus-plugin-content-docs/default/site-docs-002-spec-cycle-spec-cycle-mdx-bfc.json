@@ -1,0 +1,28 @@
+{
+  "id": "spec-cycle/spec-cycle",
+  "title": "The Spec-Driven Development Cycle",
+  "description": "Understanding the core principles and implementation process of Spec-Driven Development for documentation projects",
+  "source": "@site/docs/002-spec-cycle/spec-cycle.mdx",
+  "sourceDirName": "002-spec-cycle",
+  "slug": "/spec-cycle/spec-cycle",
+  "permalink": "/docs/spec-cycle/spec-cycle",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "The Spec-Driven Development Cycle",
+    "description": "Understanding the core principles and implementation process of Spec-Driven Development for documentation projects"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Introduction to AI/Spec-Driven Book Creation",
+    "permalink": "/docs/intro/intro"
+  },
+  "next": {
+    "title": "Getting Started with Docusaurus",
+    "permalink": "/docs/getting-started"
+  }
+}

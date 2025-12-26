@@ -1,0 +1,28 @@
+{
+  "id": "deploy-automate/deploy-automate",
+  "title": "Deployment Automation and Quality Gates",
+  "description": "Implementing automated deployment to GitHub Pages with comprehensive quality gates for consistent, high-quality releases",
+  "source": "@site/docs/004-deploy-automate/deploy-automate.mdx",
+  "sourceDirName": "004-deploy-automate",
+  "slug": "/deploy-automate/deploy-automate",
+  "permalink": "/docs/deploy-automate/deploy-automate",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Deployment Automation and Quality Gates",
+    "description": "Implementing automated deployment to GitHub Pages with comprehensive quality gates for consistent, high-quality releases"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "AI Collaboration in Documentation",
+    "permalink": "/docs/ai-collaboration/ai-collaboration"
+  },
+  "next": {
+    "title": "Documentation Governance and Maintenance",
+    "permalink": "/docs/governance/governance"
+  }
+}

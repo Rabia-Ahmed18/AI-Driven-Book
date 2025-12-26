@@ -1,0 +1,26 @@
+{
+  "id": "rag-chatbot/introduction",
+  "title": "RAG Chatbot Integration",
+  "description": "The RAG (Retrieval-Augmented Generation) Chatbot provides an AI-powered interface for users to ask questions about the book content. It leverages a vector database to retrieve relevant information and generates responses based on the book's content.",
+  "source": "@site/docs/rag-chatbot/introduction.md",
+  "sourceDirName": "rag-chatbot",
+  "slug": "/rag-chatbot/introduction",
+  "permalink": "/docs/rag-chatbot/introduction",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Documentation Governance and Maintenance",
+    "permalink": "/docs/governance/governance"
+  },
+  "next": {
+    "title": "Deployment Guide: RAG Chatbot",
+    "permalink": "/docs/rag-chatbot/deployment"
+  }
+}

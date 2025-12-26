@@ -75,7 +75,7 @@ const config = {
             label: 'Book',
           },
           {
-            href: 'https://github.com/your-org/ai-spec-driven-book',
+            href: 'https://github.com/Rabia-Ahmed18/ai-spec-driven-book',
             label: 'GitHub',
             position: 'right',
           },

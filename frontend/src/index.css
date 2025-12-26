@@ -1,0 +1,175 @@
+/* Basic styles for the RAG Chatbot application */
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.book-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.chatbot-container {
+  max-width: 800px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-window {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.selected-text-preview {
+  background-color: #e8f4f8;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin-bottom: 15px;
+  max-width: 80%;
+  align-self: flex-start;
+}
+
+.message.user-message {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+  border-radius: 10px 10px 0 10px;
+  padding: 10px;
+}
+
+.message.assistant-message {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px 10px 10px 0;
+  padding: 10px;
+}
+
+.message-content {
+  word-wrap: break-word;
+}
+
+.citations {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+}
+
+.citations h4 {
+  margin: 0 0 10px 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.citations ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.citations li {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border-left: 3px solid #007cba;
+  font-size: 0.85em;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  background-color: #999;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 2px;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typing {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.chat-input-form {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.chat-input-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.chat-input-form button {
+  padding: 10px 20px;
+  background-color: #007cba;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chat-input-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

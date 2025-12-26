@@ -1,0 +1,23 @@
+{
+  "id": "ai-collaboration",
+  "title": "AI Collaboration in Documentation",
+  "description": "This chapter provides a comprehensive guide to integrating AI tools as collaborative agents in documentation workflows, emphasizing human oversight, spec traceability, and iterative refinement.",
+  "source": "@site/docs/ai-collaboration.mdx",
+  "sourceDirName": ".",
+  "slug": "/ai-collaboration",
+  "permalink": "/ai-spec-driven-book/docs/ai-collaboration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-org/ai-spec-driven-book/tree/main/docs/ai-collaboration.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Getting Started with Docusaurus",
+    "permalink": "/ai-spec-driven-book/docs/getting-started"
+  }
+}

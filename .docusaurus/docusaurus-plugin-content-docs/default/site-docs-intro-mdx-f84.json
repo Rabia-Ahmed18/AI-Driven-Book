@@ -1,0 +1,23 @@
+{
+  "id": "intro",
+  "title": "Introduction",
+  "description": "This is a practical guide to building and deploying technical documentation using Spec-Driven Development and AI-assisted authoring.",
+  "source": "@site/docs/intro.mdx",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/ai-spec-driven-book/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-org/ai-spec-driven-book/tree/main/docs/intro.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Getting Started with Docusaurus",
+    "permalink": "/ai-spec-driven-book/docs/getting-started"
+  }
+}

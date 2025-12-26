@@ -1,0 +1,166 @@
+# API Contract: Backend Service for Docker Deployment
+
+## Overview
+This document defines the API contract for the backend service that will be containerized and deployed to HuggingFace Spaces.
+
+## Base URL
+```
+http://localhost:8000 (local development)
+https://[your-space-name].hf.space (HuggingFace Spaces deployment)
+```
+
+## Health Check Endpoint
+### GET /health
+Check the health status of the backend service.
+
+**Response:**
+- Status: 200 OK
+- Content-Type: application/json
+- Body:
+```json
+{
+  "status": "healthy",
+  "timestamp": "2025-12-25T10:00:00Z",
+  "version": "1.0.0"
+}
+```
+
+## Book-Wide Q&A Endpoint
+### POST /api/book-wide-qna
+Process a question against the entire book corpus and return a response with source citations.
+
+**Headers:**
+- Content-Type: application/json
+- Authorization: Bearer {API_KEY} (if required)
+
+**Request Body:**
+```json
+{
+  "question": "What is the main concept discussed in the book?",
+  "context_window": 5,  // Number of context chunks to retrieve
+  "model": "gpt-3.5-turbo"  // Optional: LLM model to use
+}
+```
+
+**Response:**
+- Status: 200 OK
+- Content-Type: application/json
+- Body:
+```json
+{
+  "response": "The main concept discussed in the book is...",
+  "sources": [
+    {
+      "filename": "chapter1.md",
+      "section": "Introduction",
+      "chunk_id": "chunk_12345",
+      "similarity_score": 0.92
+    }
+  ],
+  "model_used": "gpt-3.5-turbo",
+  "processing_time": 1.234  // in seconds
+}
+```
+
+**Error Responses:**
+- 400 Bad Request: Invalid request format
+- 401 Unauthorized: Invalid or missing API key
+- 422 Unprocessable Entity: Question is empty or too long
+- 500 Internal Server Error: Processing error
+
+## Selected Text Q&A Endpoint
+### POST /api/selected-text-qna
+Process a question against a specific text selection and return a response with source citations.
+
+**Headers:**
+- Content-Type: application/json
+- Authorization: Bearer {API_KEY} (if required)
+
+**Request Body:**
+```json
+{
+  "question": "What does this specific text mean?",
+  "selected_context": "The specific text that was selected by the user...",
+  "model": "gpt-3.5-turbo"  // Optional: LLM model to use
+}
+```
+
+**Response:**
+- Status: 200 OK
+- Content-Type: application/json
+- Body:
+```json
+{
+  "response": "The selected text means...",
+  "sources": [
+    {
+      "context_provenance": "user_selected_text",
+      "similarity_score": 1.0
+    }
+  ],
+  "model_used": "gpt-3.5-turbo",
+  "processing_time": 0.856  // in seconds
+}
+```
+
+**Error Responses:**
+- 400 Bad Request: Invalid request format
+- 401 Unauthorized: Invalid or missing API key
+- 422 Unprocessable Entity: Question or context is empty
+- 500 Internal Server Error: Processing error
+
+## Content Ingestion Endpoint
+### POST /api/ingest
+Ingest documents from the docs directory into the vector database.
+
+**Headers:**
+- Content-Type: application/json
+- Authorization: Bearer {API_KEY} (if required)
+
+**Request Body:**
+```json
+{
+  "source_directory": "./docs",  // Path to docs directory
+  "chunk_size": 1000,  // Optional: size of text chunks
+  "chunk_overlap": 100,  // Optional: overlap between chunks
+  "recreate_index": false  // Optional: recreate the vector index
+}
+```
+
+**Response:**
+- Status: 200 OK
+- Content-Type: application/json
+- Body:
+```json
+{
+  "status": "completed",
+  "files_processed": 15,
+  "chunks_created": 125,
+  "index_name": "book_chunks",
+  "processing_time": 45.678  // in seconds
+}
+```
+
+**Error Responses:**
+- 400 Bad Request: Invalid request format
+- 401 Unauthorized: Invalid or missing API key
+- 500 Internal Server Error: Processing error
+
+## Error Response Format
+All error responses follow this format:
+```json
+{
+  "error": {
+    "type": "error_type",
+    "message": "Descriptive error message",
+    "details": "Additional error details if available"
+  }
+}
+```
+
+## Common Error Types
+- `invalid_request_error`: The request format is invalid
+- `authentication_error`: Authentication failed
+- `processing_error`: An error occurred during processing
+- `resource_not_found`: The requested resource does not exist
+- `rate_limit_error`: Rate limit exceeded

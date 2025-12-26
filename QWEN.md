@@ -214,6 +214,10 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 - Qdrant Cloud (007-rag-chatbot-full-implementation)
 - Neon Serverless Postgres (007-rag-chatbot-full-implementation)
 - React + TypeScript (007-rag-chatbot-full-implementation)
+- Python 3.11, TypeScript for frontend components + FastAPI, Qdrant, Neon Postgres, OpenAI SDK, React (012-rag-book-chatbot)
+- Qdrant Cloud (vector database) for embeddings, Neon Serverless Postgres (relational database) for user/session data (012-rag-book-chatbot)
+- Python 3.11 (based on existing project which uses FastAPI) + FastAPI, Docker, HuggingFace Spaces compatibility requirements (006-docker-backend-deployment)
+- N/A (containerization task) (006-docker-backend-deployment)
 
 ## Recent Changes
 - 007-rag-chatbot-full-implementation: Added Python 3.11 + FastAPI

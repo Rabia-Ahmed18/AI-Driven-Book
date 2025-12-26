@@ -1,0 +1,19 @@
+{
+  "id": "rag-chatbot/deployment",
+  "title": "Deployment Guide: RAG Chatbot",
+  "description": "Backend Deployment (FastAPI)",
+  "source": "@site/docs/rag-chatbot/deployment.md",
+  "sourceDirName": "rag-chatbot",
+  "slug": "/rag-chatbot/deployment",
+  "permalink": "/docs/rag-chatbot/deployment",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "RAG Chatbot Integration",
+    "permalink": "/docs/rag-chatbot/introduction"
+  }
+}
