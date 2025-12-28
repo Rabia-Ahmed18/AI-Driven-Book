@@ -1,190 +1,136 @@
+#!/usr/bin/env python3
 """
-Data Ingestion Pipeline for RAG-Based AI Book Chatbot
+Ingestion script for the RAG Chatbot integration.
+This script reads .md or .mdx files from the /docs directory,
+chunks them using a recursive character splitter,
+and upserts them into a Qdrant Cloud collection with OpenAI embeddings.
+"""
 
-This script processes book content, chunks it, generates embeddings,
-and stores them in the vector database with appropriate metadata.
-"""
 import os
-import sys
-import logging
-from typing import List, Dict, Any
+import glob
 from pathlib import Path
+from typing import List, Dict, Any
+from dotenv import load_dotenv
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from backend.embedding_service import EmbeddingService
-from backend.vector_store import VectorStore
-from backend.database import SessionLocal
-from backend.models.document_chunk import DocumentChunk
-from backend.models.book_metadata import BookMetadata
-import uuid
+from backend.src.services.embedding_service import embedding_service
+from backend.src.core.qdrant import qdrant_service
+from backend.src.models.chunk import DocumentChunk
+from backend.src.core.logging import app_logger
 
+load_dotenv()
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+def read_docs_files(docs_path: str) -> List[Dict[str, Any]]:
+    """
+    Read all .md and .mdx files from the docs directory
+    """
+    files = []
+    patterns = [os.path.join(docs_path, "**/*.md"), os.path.join(docs_path, "**/*.mdx")]
 
+    for pattern in patterns:
+        for file_path in glob.glob(pattern, recursive=True):
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                # Create a relative URL from the file path
+                relative_path = os.path.relpath(file_path, docs_path)
+                url = f"/docs/{relative_path.replace(os.sep, '/')}"
 
-class IngestionPipeline:
-    def __init__(self, book_id: str, source_path: str, chunk_size: int = 1000, chunk_overlap: int = 100):
-        self.book_id = book_id
-        self.source_path = Path(source_path)
-        self.chunk_size = chunk_size
-        self.chunk_overlap = chunk_overlap
-        self.embedding_service = EmbeddingService()
-        self.vector_store = VectorStore()
-        self.db = SessionLocal()
-        
-        # Initialize text splitter with RecursiveCharacterTextSplitter
-        self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=self.chunk_size,
-            chunk_overlap=self.chunk_overlap,
-            length_function=len,
-            is_separator_regex=False
-        )
-    
-    def load_documents(self) -> List[Dict[str, Any]]:
-        """Load documents from the source path"""
-        documents = []
-        
-        # Walk through all markdown files in the source directory
-        for file_path in self.source_path.rglob("*.md"):
-            try:
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    content = file.read()
-                    
-                    # Create document entry
-                    documents.append({
-                        "content": content,
-                        "source_file": str(file_path.relative_to(self.source_path)),
-                        "source_section": ""  # Will extract section headers if needed
-                    })
-            except Exception as e:
-                logger.error(f"Error reading file {file_path}: {e}")
-        
-        return documents
-    
-    def split_documents(self, documents: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Split documents into chunks"""
-        chunks = []
-        
-        for doc in documents:
-            content = doc["content"]
-            source_file = doc["source_file"]
-            
-            # Split the content
-            split_texts = self.text_splitter.split_text(content)
-            
-            for i, chunk_text in enumerate(split_texts):
-                chunk = {
-                    "content": chunk_text,
-                    "source_file": source_file,
-                    "source_section": doc.get("source_section", ""),
-                    "chunk_index": i
-                }
-                chunks.append(chunk)
-        
-        return chunks
-    
-    def process_and_store(self) -> int:
-        """Process documents and store in vector database"""
-        try:
-            # Load documents
-            logger.info(f"Loading documents from {self.source_path}")
-            documents = self.load_documents()
-            
-            if not documents:
-                logger.warning("No documents found to process")
-                return 0
-            
-            # Split documents into chunks
-            logger.info(f"Splitting {len(documents)} documents into chunks")
-            chunks = self.split_documents(documents)
-            
-            if not chunks:
-                logger.warning("No chunks created from documents")
-                return 0
-            
-            # Process each chunk
-            processed_count = 0
-            vectors_data = []
-            
-            for i, chunk in enumerate(chunks):
-                # Generate embedding for the chunk
-                embedding = self.embedding_service.generate_embedding(chunk["content"])
-                
-                if embedding is None:
-                    logger.error(f"Failed to generate embedding for chunk {i}")
-                    continue
-                
-                # Create a unique ID for the vector
-                vector_id = str(uuid.uuid4())
-                
-                # Prepare payload for vector store
-                payload = {
-                    "book_id": self.book_id,
-                    "source_file": chunk["source_file"],
-                    "source_section": chunk["source_section"],
-                    "chunk_index": chunk["chunk_index"],
-                    "content_preview": chunk["content"][:100]  # Store a preview of the content
-                }
-                
-                # Store in vector database
-                success = self.vector_store.store_embedding(vector_id, embedding, payload)
-                
-                if success:
-                    # Also store in the SQL database for metadata
-                    db_chunk = DocumentChunk(
-                        book_id=self.book_id,
-                        content=chunk["content"],
-                        source_file=chunk["source_file"],
-                        source_section=chunk["source_section"],
-                        chunk_index=chunk["chunk_index"],
-                        embedding_vector_id=vector_id
-                    )
-                    
-                    self.db.add(db_chunk)
-                    
-                    processed_count += 1
-                    logger.info(f"Processed chunk {i+1}/{len(chunks)}")
-                else:
-                    logger.error(f"Failed to store embedding for chunk {i}")
-            
-            # Commit to database
-            self.db.commit()
-            
-            logger.info(f"Successfully processed and stored {processed_count} chunks")
-            return processed_count
-            
-        except Exception as e:
-            logger.error(f"Error in ingestion pipeline: {e}")
-            self.db.rollback()
-            raise e
-        finally:
-            self.db.close()
+                files.append({
+                    "content": content,
+                    "source_url": url,
+                    "file_path": file_path
+                })
 
+    return files
 
-def main():
-    # Example usage
-    if len(sys.argv) < 3:
-        print("Usage: python ingestion_script.py <book_id> <source_path> [chunk_size] [chunk_overlap]")
-        sys.exit(1)
-    
-    book_id = sys.argv[1]
-    source_path = sys.argv[2]
-    chunk_size = int(sys.argv[3]) if len(sys.argv) > 3 else 1000
-    chunk_overlap = int(sys.argv[4]) if len(sys.argv) > 4 else 100
-    
-    logger.info(f"Starting ingestion for book {book_id} from {source_path}")
-    
-    pipeline = IngestionPipeline(
-        book_id=book_id,
-        source_path=source_path,
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap
+def chunk_document(content: str, source_url: str, heading: str = "") -> List[DocumentChunk]:
+    """
+    Chunk the document content using RecursiveCharacterTextSplitter
+    """
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000,
+        chunk_overlap=200,
+        length_function=len,
+        is_separator_regex=False,
     )
-    
-    processed_count = pipeline.process_and_store()
-    
-    logger.info(f"Ingestion completed. Processed {processed_count} chunks.")
+
+    chunks = text_splitter.split_text(content)
+
+    document_chunks = []
+    for i, chunk_text in enumerate(chunks):
+        chunk = DocumentChunk(
+            content=chunk_text,
+            source_url=source_url,
+            heading=heading,
+            metadata={"chunk_index": i, "total_chunks": len(chunks)}
+        )
+        document_chunks.append(chunk)
+
+    return document_chunks
+
+def process_document(doc_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Process a single document: chunk it and generate embeddings
+    """
+    chunks = chunk_document(
+        content=doc_data["content"],
+        source_url=doc_data["source_url"],
+        heading=Path(doc_data["file_path"]).stem  # Use filename as heading
+    )
+
+    processed_chunks = []
+    for chunk in chunks:
+        # Generate embedding for the chunk
+        embedding = embedding_service.generate_embedding(chunk.content)
+        chunk.embedding = embedding
+
+        processed_chunks.append({
+            "id": chunk.id,
+            "vector": chunk.embedding,
+            "payload": {
+                "content": chunk.content,
+                "source_url": chunk.source_url,
+                "heading": chunk.heading,
+                "metadata": chunk.metadata
+            }
+        })
+
+    return processed_chunks
+
+def main(docs_path: str = "./docs"):
+    """
+    Main ingestion function
+    """
+    if not os.path.exists(docs_path):
+        raise FileNotFoundError(f"Docs directory not found: {docs_path}")
+
+    app_logger.info(f"Starting ingestion from {docs_path}")
+
+    # Read all docs files
+    docs_files = read_docs_files(docs_path)
+    app_logger.info(f"Found {len(docs_files)} files to process")
+
+    all_chunks_for_upsert = []
+
+    # Process each document
+    for i, doc_data in enumerate(docs_files):
+        app_logger.info(f"Processing file {i+1}/{len(docs_files)}: {doc_data['source_url']}")
+
+        try:
+            chunks_for_upsert = process_document(doc_data)
+            all_chunks_for_upsert.extend(chunks_for_upsert)
+        except Exception as e:
+            app_logger.error(f"Error processing file {doc_data['source_url']}: {str(e)}")
+            continue
+
+    # Upsert all chunks to Qdrant
+    if all_chunks_for_upsert:
+        app_logger.info(f"Upserting {len(all_chunks_for_upsert)} chunks to Qdrant...")
+        count = qdrant_service.upsert_vectors(all_chunks_for_upsert)
+        app_logger.info(f"Successfully upserted {count} chunks to Qdrant")
+    else:
+        app_logger.warning("No chunks to upsert")
+
+    app_logger.info("Ingestion completed")
 
 
 if __name__ == "__main__":

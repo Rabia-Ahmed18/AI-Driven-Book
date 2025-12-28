@@ -15,12 +15,8 @@
     "sidebar_position": 2
   },
   "sidebar": "tutorialSidebar",
-  "previous": {
-    "title": "The Spec-Driven Development Cycle",
-    "permalink": "/docs/spec-cycle/spec-cycle"
-  },
   "next": {
-    "title": "AI Collaboration in Documentation",
-    "permalink": "/docs/ai-collaboration/ai-collaboration"
+    "title": "Introduction to AI/Spec-Driven Book Creation",
+    "permalink": "/docs/intro/intro"
   }
 }

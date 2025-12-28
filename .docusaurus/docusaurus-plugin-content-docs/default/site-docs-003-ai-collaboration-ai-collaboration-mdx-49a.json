@@ -18,8 +18,8 @@
   },
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Getting Started with Docusaurus",
-    "permalink": "/docs/getting-started"
+    "title": "The Spec-Driven Development Cycle",
+    "permalink": "/docs/spec-cycle/spec-cycle"
   },
   "next": {
     "title": "Deployment Automation and Quality Gates",

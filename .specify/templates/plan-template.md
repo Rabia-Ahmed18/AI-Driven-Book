@@ -11,27 +11,31 @@
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
-
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Python 3.11 (backend), TypeScript/JavaScript (frontend)
+**Primary Dependencies**: FastAPI (backend), Docusaurus (frontend), Qdrant Cloud (vector database), OpenAI SDK (LLM integration)
+**Storage**: Qdrant Cloud (vector storage), Neon Serverless Postgres (metadata and chat history)
+**Testing**: pytest (backend), Jest/React Testing Library (frontend)
+**Target Platform**: Web application (Docusaurus-based documentation site)
+**Project Type**: Web application with backend API and frontend integration
+**Performance Goals**: <200ms response time for Q&A requests, efficient vector search within large document collections
+**Constraints**: Qdrant Cloud Free Tier limitations, OpenAI API rate limits, Vercel deployment constraints
+**Scale/Scope**: Single documentation site with integrated RAG chatbot functionality
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**RAG-First Architecture**: Verify that all proposed solutions are built around a Retrieval-Augmented Generation foundation with responses grounded in book content.
+
+**Full-Stack Modularity**: Confirm that backend (FastAPI), vector database (Qdrant), and frontend (Docusaurus/React) are designed as separate modules with clear API contracts.
+
+**Test-First (NON-NEGOTIABLE)**: Ensure testing strategy includes unit tests for core functions, integration tests for API endpoints, and E2E tests for complete Q&A flows following TDD methodology.
+
+**Content Context Integrity**: Validate that design maintains strict separation between book-wide Q&A and selected text contextual Q&A with proper provenance tracking.
+
+**Source Transparency**: Confirm implementation includes direct citations to original content with precise source locations.
+
+**Deployment-First Design**: Verify that all components are production-ready with configuration via environment variables only.
 
 ## Project Structure
 
@@ -48,51 +52,31 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
 backend/
 ├── src/
 │   ├── models/
 │   ├── services/
-│   └── api/
+│   ├── api/
+│   └── core/
 └── tests/
 
 frontend/
 ├── src/
 │   ├── components/
-│   ├── pages/
-│   └── services/
+│   ├── hooks/
+│   ├── services/
+│   └── types/
 └── tests/
 
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
+docs/
+└── [Docusaurus documentation files]
 
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+ingestion_script.py      # Standalone ingestion script
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: Web application with separate backend API and Docusaurus-based frontend integration. The backend handles RAG operations and API requests, while the frontend provides the chatbot UI integrated into the documentation site.
 
 ## Complexity Tracking
 

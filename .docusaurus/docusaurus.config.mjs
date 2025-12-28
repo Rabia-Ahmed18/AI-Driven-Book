@@ -7,7 +7,7 @@ export default {
   "title": "AI-Spec-Driven Book Creation",
   "tagline": "A practical guide to building and deploying technical documentation using Spec-Driven Development and AI-assisted authoring",
   "favicon": "img/favicon.ico",
-  "url": "https://Rabia-Ahmed18.github.io",
+  "url": "https://ai-driven-book-nine.vercel.app",
   "baseUrl": "/",
   "organizationName": "Rabia-Ahmed18",
   "projectName": "ai-spec-driven-book",
@@ -63,7 +63,7 @@ export default {
           "label": "Book"
         },
         {
-          "href": "https://github.com/your-org/ai-spec-driven-book",
+          "href": "https://github.com/Rabia-Ahmed18/ai-spec-driven-book",
           "label": "GitHub",
           "position": "right"
         }
@@ -100,12 +100,12 @@ export default {
           "items": [
             {
               "label": "GitHub",
-              "href": "https://github.com/your-org/ai-spec-driven-book"
+              "href": "https://github.com/Rabia-Ahmed18/ai-spec-driven-book"
             }
           ]
         }
       ],
-      "copyright": "Copyright © 2025 AI/Spec-Driven Book Creation. Built with Docusaurus."
+      "copyright": "Copyright © 2025 AI/Spec-Driven Book Creation. Built by RABIA."
     },
     "prism": {
       "defaultLanguage": "javascript",

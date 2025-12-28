@@ -1,5 +1,7 @@
 // @ts-check
 
+
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'AI-Spec-Driven Book Creation',
@@ -7,11 +9,8 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-
-
-
   
-  url: 'https://Rabia-Ahmed18.github.io',
+  url: 'https://ai-driven-book-nine.vercel.app/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<org-name>/<repo-name>/'
   baseUrl: '/',
@@ -111,12 +110,12 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/your-org/ai-spec-driven-book',
+                href: 'https://github.com/Rabia-Ahmed18/ai-spec-driven-book',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} AI/Spec-Driven Book Creation. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} AI/Spec-Driven Book Creation. Built by RABIA.`,
       },
       prism: {
         defaultLanguage: 'javascript',

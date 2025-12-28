@@ -17,6 +17,10 @@
     "description": "A practical guide to building and deploying technical documentation using Spec-Driven Development and AI-assisted authoring"
   },
   "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Getting Started with Docusaurus",
+    "permalink": "/docs/getting-started"
+  },
   "next": {
     "title": "The Spec-Driven Development Cycle",
     "permalink": "/docs/spec-cycle/spec-cycle"

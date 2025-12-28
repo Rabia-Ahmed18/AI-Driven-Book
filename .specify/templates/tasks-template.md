@@ -48,9 +48,11 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T001 Create project structure with backend/ and frontend/ directories per implementation plan
+- [ ] T002 Initialize Python project with FastAPI, Qdrant, OpenAI dependencies in backend/
+- [ ] T003 [P] Initialize TypeScript/React project with Docusaurus dependencies in frontend/
+- [ ] T004 [P] Configure linting and formatting tools for both backend and frontend
+- [ ] T005 Setup environment configuration management for API keys and service URLs
 
 ---
 
@@ -62,12 +64,14 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T006 Setup Qdrant Cloud connection and collection initialization
+- [ ] T007 [P] Implement Qdrant vector storage models for document chunks
+- [ ] T008 [P] Setup API routing and middleware structure in FastAPI
+- [ ] T009 Create base data models that all stories depend on (Document, Chunk, ChatSession)
+- [ ] T010 Configure error handling and logging infrastructure
+- [ ] T011 Setup environment configuration management (if not done in T005)
+- [ ] T012 Implement rate limiting middleware to protect Free Tier usage
+- [ ] T013 Create base services for OpenAI integration and embedding generation
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
