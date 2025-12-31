@@ -54,7 +54,7 @@ python ingestion_script.py
 ### 5. Start the Backend Server
 ```bash
 # From the backend directory
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### 6. Frontend Setup

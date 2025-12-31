@@ -11,21 +11,33 @@
   margin-bottom: 20px;
 }
 
-.book-content {
-  max-width: 800px;
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px 40px;
+}
+
+.book-content {
+  flex: 1;
   text-align: left;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  min-height: 300px;
   line-height: 1.6;
 }
 
+.book-content p {
+  margin-bottom: 16px;
+}
+
 .chatbot-container {
-  max-width: 800px;
-  margin: 20px auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 0 0 auto;
 }
 
 .chat-window {
@@ -172,4 +184,18 @@
 .chat-input-form button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .app-layout {
+    flex-direction: row;
+  }
+
+  .book-content {
+    flex: 1;
+  }
+
+  .chatbot-container {
+    flex: 0 0 400px;
+  }
 }

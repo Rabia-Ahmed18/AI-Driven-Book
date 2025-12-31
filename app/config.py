@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     API_HOST: str = "0.0.0.0"
     API_PORT: int = 8001
     DEBUG: bool = False
+    LOG_LEVEL: str = "INFO"
 
     # OpenAI Settings
     OPENAI_API_KEY: str
@@ -17,6 +18,11 @@ class Settings(BaseSettings):
     QDRANT_URL: str
     QDRANT_API_KEY: str
     QDRANT_COLLECTION_NAME: str = "book_chunks"
+    QDRANT_HOST: str = "localhost"  # Default host
+    QDRANT_PORT: int = 6333  # Default port
+
+    # Database Settings
+    NEON_DATABASE_URL: str
 
     # Security
     SECRET_KEY: str
@@ -25,10 +31,6 @@ class Settings(BaseSettings):
     # Rate Limiting
     RATE_LIMIT_REQUESTS: int = 100  # requests per minute
     RATE_LIMIT_WINDOW: int = 60  # seconds
-
-    # Frontend Configuration (added to prevent validation errors)
-    REACT_APP_API_BASE_URL: str = "http://localhost:8001"
-    REACT_APP_CHATBOT_ENABLED: str = "true"
 
     class Config:
         env_file = ".env"

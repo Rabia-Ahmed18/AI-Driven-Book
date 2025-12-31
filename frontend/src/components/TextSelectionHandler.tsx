@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useTextSelection } from '../hooks/useTextSelection';
 
-export const TextSelectionHandler: React.FC = () => {
-  const { setSelectedText } = useTextSelection();
+interface TextSelectionHandlerProps {
+  setSelectedText: (text: string | null) => void;
+}
 
+export const TextSelectionHandler: React.FC<TextSelectionHandlerProps> = ({ setSelectedText }) => {
   useEffect(() => {
     const handleSelection = () => {
       const selection = window.getSelection();
@@ -12,6 +13,9 @@ export const TextSelectionHandler: React.FC = () => {
         if (selectedText.length > 0) {
           setSelectedText(selectedText);
         }
+      } else {
+        // Clear selection if no text is selected
+        setSelectedText(null);
       }
     };
 

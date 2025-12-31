@@ -3,11 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
 import os
-from app.models import ChatRequest, ChatResponse, IngestRequest, IngestResponse
-from app.config import settings
-from app.rag_core.qdrant_client import QdrantClientWrapper
-from app.rag_core.postgres_client import PostgresClient
-from app.rag_core.rag_pipeline import RAGPipeline
+from .models import ChatRequest, ChatResponse, IngestRequest, IngestResponse
+from .config import settings
+from .rag_core.qdrant_client import QdrantClientWrapper
+from .rag_core.postgres_client import PostgresClient
+from .rag_core.rag_pipeline import RAGPipeline
 from openai import AsyncOpenAI
 
 # Configure logging
